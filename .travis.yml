@@ -9,5 +9,5 @@ env:
   - CHAI_VERSION=^3.0.0
   - CHAI_VERSION=^4.0.0
 script:
-  - npm run lint
+  - ./node_modules/.bin/if-node-version ">= 4" npm run lint
   - npm run test-travis
