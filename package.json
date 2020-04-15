@@ -1,5 +1,5 @@
 {
-  "name": "chai-as-promised-es5",
+  "name": "@jridgewell/chai-as-promised-es5",
   "description": "Extends Chai with assertions about promises, and ES5 (and IE11) compatible.",
   "keywords": [
     "chai",
