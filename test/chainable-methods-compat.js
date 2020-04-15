@@ -1,7 +1,7 @@
 "use strict";
-const chai = require("chai");
-const chaiAsPromised = require("..");
-const expect = chai.expect;
+var chai = require("chai");
+var chaiAsPromised = require("..");
+var expect = chai.expect;
 
 function newMethod() {
     // Do nothing
@@ -21,23 +21,23 @@ function makeFunction() {
     return fn;
 }
 
-chai.use(ctx => {
+chai.use(function (ctx) {
     ctx.Assertion.addChainableMethod("newMethod", newMethod, newMethodChain);
 });
 
-describe("New method `newMethod` added to chai", () => {
-    describe("before executing chai.use(chaiAsPromised)", () => {
-        it("should work", () => {
+describe("New method `newMethod` added to chai", function () {
+    describe("before executing chai.use(chaiAsPromised)", function () {
+        it("should work", function () {
             expect(makeFunction()).to.have.been.newMethod();
         });
     });
 
-    describe("after executing chai.use(chaiAsPromised)", () => {
-        before(() => {
+    describe("after executing chai.use(chaiAsPromised)", function () {
+        before(function () {
             chai.use(chaiAsPromised);
         });
 
-        it("should still work", () => {
+        it("should still work", function () {
             expect(makeFunction()).to.have.been.newMethod();
         });
     });

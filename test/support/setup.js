@@ -1,13 +1,13 @@
 "use strict";
-const chai = require("chai");
-const chaiAsPromised = require("../..");
+var chai = require("chai");
+var chaiAsPromised = require("../..");
 
 chai.should();
 chai.use(chaiAsPromised);
 
-process.on("unhandledRejection", () => {
+process.on("unhandledRejection", function () {
     // Do nothing; we test these all the time.
 });
-process.on("rejectionHandled", () => {
+process.on("rejectionHandled", function () {
     // Do nothing; we test these all the time.
 });

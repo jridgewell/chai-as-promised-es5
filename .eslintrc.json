@@ -2,10 +2,10 @@
   "root": true,
   "env": {
     "node": true,
-    "es6": true
+    "es6": false
   },
   "parserOptions": {
-    "ecmaVersion": 6
+    "ecmaVersion": 5
   },
   "rules": {
     // Possible errors
@@ -138,7 +138,7 @@
     // Stylistic Issues
     "array-bracket-spacing": ["error", "never"],
     "block-spacing": ["error", "always"],
-    "brace-style": ["error", "1tbs", { "allowSingleLine": false }],
+    "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
     "camelcase": ["error", { "properties": "always" }],
     "comma-spacing": ["error", { "before": false, "after": true }],
     "comma-style": ["error", "last"],
@@ -161,7 +161,7 @@
     "max-nested-callbacks": "off",
     "max-params": "off",
     "max-statements": "off",
-    "max-statements-per-line": ["error", { "max": 1 }],
+    "max-statements-per-line": ["error", { "max": 2 }],
     "new-cap": "error",
     "new-parens": "error",
     "newline-after-var": "off",
@@ -204,33 +204,6 @@
     "space-infix-ops": "error",
     "space-unary-ops": ["error", { "words": true, "nonwords": false }],
     "spaced-comment": ["error", "always", { "markers": ["///"] }],
-    "wrap-regex": "off",
-
-    // ECMAScript 6
-    "arrow-body-style": "off", // meh
-    "arrow-parens": ["error", "as-needed"],
-    "arrow-spacing": "error",
-    "constructor-super": "error",
-    "generator-star-spacing": ["error", "after"],
-    "no-class-assign": "error",
-    "no-confusing-arrow": "off",
-    "no-const-assign": "error",
-    "no-dupe-class-members": "error",
-    "no-duplicate-imports": "error",
-    "no-new-symbol": "error",
-    "no-this-before-super": "error",
-    "no-useless-computed-key": "error",
-    "no-useless-constructor": "error",
-    "no-var": "error",
-    "object-shorthand": "error",
-    "prefer-arrow-callback": "error",
-    "prefer-const": "error",
-    "prefer-reflect": "off",
-    "prefer-rest-params": "off",
-    "prefer-spread": "off",
-    "prefer-template": "off",
-    "require-yield": "error",
-    "template-curly-spacing": ["error", "never"],
-    "yield-star-spacing": ["error", "after"]
+    "wrap-regex": "off"
   }
 }

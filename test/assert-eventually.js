@@ -1,65 +1,65 @@
 "use strict";
 require("./support/setup.js");
-const shouldPass = require("./support/common.js").shouldPass;
-const shouldFail = require("./support/common.js").shouldFail;
-const assert = require("chai").assert;
-const expect = require("chai").expect;
+var shouldPass = require("./support/common.js").shouldPass;
+var shouldFail = require("./support/common.js").shouldFail;
+var assert = require("chai").assert;
+var expect = require("chai").expect;
 
-describe("Assert interface with eventually extender:", () => {
-    let promise = null;
+describe("Assert interface with eventually extender:", function () {
+    var promise = null;
 
-    describe("Direct tests of fulfilled promises", () => {
-        it(".eventually.isNull(promise)", done => {
+    describe("Direct tests of fulfilled promises", function () {
+        it(".eventually.isNull(promise)", function (done) {
             assert.eventually.isNull(Promise.resolve(null)).notify(done);
         });
-        it(".eventually.isFunction(promise)", done => {
-            assert.eventually.isFunction(Promise.resolve(() => { /* Forever pending */ })).notify(done);
+        it(".eventually.isFunction(promise)", function (done) {
+            assert.eventually.isFunction(Promise.resolve(function () { /* Forever pending */ })).notify(done);
         });
-        it(".eventually.typeOf(promise, 'string')", done => {
+        it(".eventually.typeOf(promise, 'string')", function (done) {
             assert.eventually.typeOf(Promise.resolve("hello"), "string").notify(done);
         });
-        it(".eventually.include(promiseForString, 'substring')", done => {
+        it(".eventually.include(promiseForString, 'substring')", function (done) {
             assert.eventually.include(Promise.resolve("hello"), "hell").notify(done);
         });
-        it(".eventually.include(promiseForArray, arrayMember)", done => {
+        it(".eventually.include(promiseForArray, arrayMember)", function (done) {
             assert.eventually.include(Promise.resolve([1, 2, 3]), 1).notify(done);
         });
     });
 
-    describe("On a promise fulfilled with the number 42", () => {
-        beforeEach(() => {
+    describe("On a promise fulfilled with the number 42", function () {
+        beforeEach(function () {
             promise = Promise.resolve(42);
         });
 
-        describe(".eventually.isNull(promise)", () => {
+        describe(".eventually.isNull(promise)", function () {
             shouldFail({
-                op: () => assert.eventually.isNull(promise),
+                op: function () { return assert.eventually.isNull(promise); },
                 message: "to equal null"
             });
         });
-        describe(".eventually.isDefined(promise)", () => {
-            shouldPass(() => assert.eventually.isDefined(promise));
+        describe(".eventually.isDefined(promise)", function () {
+            shouldPass(function () { return assert.eventually.isDefined(promise); });
         });
-        describe(".eventually.ok(promise)", () => {
-            shouldPass(() => assert.eventually.ok(promise));
+        describe(".eventually.ok(promise)", function () {
+            shouldPass(function () { return assert.eventually.ok(promise); });
         });
-        describe(".eventually.equal(promise, 42)", () => {
-            shouldPass(() => assert.eventually.equal(promise, 42));
+        describe(".eventually.equal(promise, 42)", function () {
+            shouldPass(function () { return assert.eventually.equal(promise, 42); });
         });
-        describe(".eventually.equal(promise, 52)", () => {
+        describe(".eventually.equal(promise, 52)", function () {
             shouldFail({
-                op: () => assert.eventually.equal(promise, 52),
+                op: function () { return assert.eventually.equal(promise, 52); },
                 message: "to equal 52"
             });
 
             function shouldFailWithCorrectActual(promiseProducer) {
                 it("should return a promise rejected with an assertion error that has actual/expected properties " +
-                   "correct", done => {
+                   "correct", function (done) {
                     expect(promiseProducer().then(
-                        () => {
+                        function () {
                             throw new Error("promise fulfilled");
                         },
-                        e => {
+                        function (e) {
                             e.actual.should.equal(42);
                             e.expected.should.equal(52);
                         }
@@ -67,72 +67,72 @@ describe("Assert interface with eventually extender:", () => {
                 });
             }
 
-            describe("assert", () => {
-                shouldFailWithCorrectActual(() => assert.eventually.equal(promise, 52));
+            describe("assert", function () {
+                shouldFailWithCorrectActual(function () { return assert.eventually.equal(promise, 52); });
             });
-            describe("expect", () => {
-                shouldFailWithCorrectActual(() => expect(promise).to.eventually.equal(52));
+            describe("expect", function () {
+                shouldFailWithCorrectActual(function () { return expect(promise).to.eventually.equal(52); });
             });
-            describe("should", () => {
-                shouldFailWithCorrectActual(() => promise.should.eventually.equal(52));
+            describe("should", function () {
+                shouldFailWithCorrectActual(function () { return promise.should.eventually.equal(52); });
             });
         });
 
-        describe(".eventually.notEqual(promise, 42)", () => {
+        describe(".eventually.notEqual(promise, 42)", function () {
             shouldFail({
-                op: () => assert.eventually.notEqual(promise, 42),
+                op: function () { return assert.eventually.notEqual(promise, 42); },
                 message: "to not equal 42"
             });
         });
-        describe(".eventually.notEqual(promise, 52)", () => {
-            shouldPass(() => assert.eventually.notEqual(promise, 52));
+        describe(".eventually.notEqual(promise, 52)", function () {
+            shouldPass(function () { return assert.eventually.notEqual(promise, 52); });
         });
     });
 
-    describe("On a promise fulfilled with { foo: 'bar' }", () => {
-        beforeEach(() => {
+    describe("On a promise fulfilled with { foo: 'bar' }", function () {
+        beforeEach(function () {
             promise = Promise.resolve({ foo: "bar" });
         });
 
-        describe(".eventually.equal(promise, { foo: 'bar' })", () => {
+        describe(".eventually.equal(promise, { foo: 'bar' })", function () {
             shouldFail({
-                op: () => assert.eventually.equal(promise, { foo: "bar" }),
+                op: function () { return assert.eventually.equal(promise, { foo: "bar" }); },
                 message: "to equal { foo: 'bar' }"
             });
         });
-        describe(".eventually.deepEqual(promise, { foo: 'bar' })", () => {
-            shouldPass(() => assert.eventually.deepEqual(promise, { foo: "bar" }));
+        describe(".eventually.deepEqual(promise, { foo: 'bar' })", function () {
+            shouldPass(function () { return assert.eventually.deepEqual(promise, { foo: "bar" }); });
         });
     });
 
-    describe("Assertion messages", () => {
-        const message = "He told me enough! He told me you killed him!";
+    describe("Assertion messages", function () {
+        var message = "He told me enough! He told me you killed him!";
 
-        describe("should pass through for .eventually.isNull(promise, message) for fulfilled", () => {
+        describe("should pass through for .eventually.isNull(promise, message) for fulfilled", function () {
             shouldFail({
-                op: () => assert.eventually.isNull(Promise.resolve(42), message),
-                message
+                op: function () { return assert.eventually.isNull(Promise.resolve(42), message); },
+                message: message
             });
         });
 
-        describe("should pass through for .eventually.isNull(promise, message) for rejected", () => {
+        describe("should pass through for .eventually.isNull(promise, message) for rejected", function () {
             shouldFail({
-                op: () => assert.eventually.isNull(Promise.reject(), message),
-                message
+                op: function () { return assert.eventually.isNull(Promise.reject(), message); },
+                message: message
             });
         });
 
-        describe("should pass through for .eventually.equal(promise, 52, message) for fulfilled", () => {
+        describe("should pass through for .eventually.equal(promise, 52, message) for fulfilled", function () {
             shouldFail({
-                op: () => assert.eventually.equal(Promise.resolve(42), 52, message),
-                message
+                op: function () { return assert.eventually.equal(Promise.resolve(42), 52, message); },
+                message: message
             });
         });
 
-        describe("should pass through for .eventually.equal(promise, 52, message) for rejected", () => {
+        describe("should pass through for .eventually.equal(promise, 52, message) for rejected", function () {
             shouldFail({
-                op: () => assert.eventually.equal(Promise.reject(), 52, message),
-                message
+                op: function () { return assert.eventually.equal(Promise.reject(), 52, message); },
+                message: message
             });
         });
     });

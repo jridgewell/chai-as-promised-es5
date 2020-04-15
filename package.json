@@ -1,6 +1,6 @@
 {
-  "name": "chai-as-promised",
-  "description": "Extends Chai with assertions about promises.",
+  "name": "chai-as-promised-es5",
+  "description": "Extends Chai with assertions about promises, and ES5 (and IE11) compatible.",
   "keywords": [
     "chai",
     "chai-plugin",
@@ -9,12 +9,14 @@
     "testing",
     "assertions",
     "promises",
-    "promises-aplus"
+    "promises-aplus",
+    "ie11",
+    "es5"
   ],
   "version": "7.1.1",
   "author": "Domenic Denicola <d@domenic.me> (https://domenic.me)",
   "license": "WTFPL",
-  "repository": "domenic/chai-as-promised",
+  "repository": "jridgewell/chai-as-promised-es5",
   "main": "./lib/chai-as-promised.js",
   "files": [
     "lib"

@@ -3,7 +3,7 @@
          align="right" valign="top" alt="Promises/A+ logo" />
 </a>
 
-# Chai Assertions for Promises
+# Chai Assertions for Promises, with ES5 support
 
 **Chai as Promised** extends [Chai](http://chaijs.com/) with a fluent language for asserting facts about [promises](http://www.slideshare.net/domenicdenicola/callbacks-promises-and-coroutines-oh-my-the-evolution-of-asynchronicity-in-javascript).
 
